@@ -9,7 +9,7 @@ with handy promise callbacks.
 
 ## Dependencies
 
-This module base on [node-record-lpcm16](https://github.com/gillesdemey/node-record-lpcm16) & [nodejs-speech](https://github.com/googleapis/nodejs-speech)
+This module is base on [node-record-lpcm16](https://github.com/gillesdemey/node-record-lpcm16) & [nodejs-speech](https://github.com/googleapis/nodejs-speech)
 
 You need to install [SoX](http://sox.sourceforge.net) and it must be available in your `$PATH`.
 
@@ -24,7 +24,7 @@ You need to install [SoX](http://sox.sourceforge.net) and it must be available i
 
 ## Configuration
 
-In first you have to register in Google Cloud, follow steps:
+At first you have to register in Google Cloud, follow steps:
 
 1.  Select or create a Cloud Platform project.
 
@@ -46,17 +46,19 @@ In first you have to register in Google Cloud, follow steps:
 [enable_api]: https://console.cloud.google.com/flows/enableapi?apiid=speech.googleapis.com
 [auth]: https://cloud.google.com/docs/authentication/getting-started
 
-### There are two ways of configure solution
-
 Config object
 
-`speechClientConfig: object [speech.SpeechClient][you must define projectId & jsonKeyFilename - url to file]`
-`timeSeconds: number [number of seconds to auto stop recording]`
-`countTime: true | false [if true you'll see time count in cmd]`
-`stopIfSilence: true | false [if true auto stop recording on (default) .5s of silence]`
-`secondsOfSilence: number [time for stopIfSilence]`
-`log: true | false [if true you'll see logs in cmd]`
-`languageCode: string [recognition language]` [supported languages](https://cloud.google.com/speech/docs/languages)
+```
+speechClientConfig: object [speech.SpeechClient][you must define projectId & jsonKeyFilename - url to file]
+timeSeconds: number [number of seconds to auto stop recording]
+countTime: true | false [if true you'll see time count in cmd]
+stopIfSilence: true | false [if true auto stop recording on (default) .5s of silence]
+secondsOfSilence: number [time for stopIfSilence]
+log: true | false [if true you'll see logs in cmd]
+languageCode: string [recognition language] [supported languages](https://cloud.google.com/speech/docs/languages)
+```
+
+### There are two ways of configure solution
 
 Local config
 
