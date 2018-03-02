@@ -46,7 +46,7 @@ At first you have to register in Google Cloud, follow steps:
 [enable_api]: https://console.cloud.google.com/flows/enableapi?apiid=speech.googleapis.com
 [auth]: https://cloud.google.com/docs/authentication/getting-started
 
-Config object
+### Config object
 
 ```
 speechClientConfig: object [speech.SpeechClient][you must define projectId & jsonKeyFilename - url to file]
@@ -66,7 +66,7 @@ Local config
 Voice2txt.config({
   speechClientConfig: {
     projectId: 'project-id-123',
-    jsonKeyFilename: './url-to-json-key-file.json'
+    jsonKeyFilename: './url-to-key-file.json'
   },
   stopIfSilence: true,
   secondsOfSilence: 0.5,
@@ -86,7 +86,7 @@ const Voice2txt = require('voice2txt');
 Voice2txt.globalConfig({
   speechClientConfig: {
     projectId: '',
-    jsonKeyFilename: './key-file.json.json'
+    jsonKeyFilename: './url-to-key-file.json'
   },
   timeSeconds: 3,
   countTime: true,
@@ -113,7 +113,7 @@ const Voice2txt = require('voice2txt');
 Voice2txt.globalConfig({
 	speechClientConfig: {
 		projectId: '',
-		jsonKeyFilename: './url-to-json-key-file.json'
+		jsonKeyFilename: './url-to-key-file.json'
 	},
 	countTime: true,
 	log: true
