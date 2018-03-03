@@ -9,7 +9,9 @@ with handy promise callbacks.
 
 ## Dependencies
 
-This module is base on [node-record-lpcm16](https://github.com/gillesdemey/node-record-lpcm16) & [nodejs-speech](https://github.com/googleapis/nodejs-speech)
+This module is base on
+[node-record-lpcm16](https://github.com/gillesdemey/node-record-lpcm16) &
+[nodejs-speech](https://github.com/googleapis/nodejs-speech)
 
 You need to install [SoX](http://sox.sourceforge.net) and it must be available in your `$PATH`.
 
@@ -55,8 +57,10 @@ countTime: true | false [if true you'll see time count in cmd]
 stopIfSilence: true | false [if true auto stop recording on (default) .5s of silence]
 secondsOfSilence: number [time for stopIfSilence]
 log: true | false [if true you'll see logs in cmd]
-languageCode: string [recognition language] [supported languages](https://cloud.google.com/speech/docs/languages)
+languageCode: string [recognition language]
 ```
+
+[supported languages](https://cloud.google.com/speech/docs/languages)
 
 ### There are two ways of configure solution
 
@@ -132,6 +136,20 @@ Voice2txt.config({
 	languageCode: 'pl-PL'
 }).then(success).catch(error).startRecord();
 ```
+
+### Methods
+
+`then(function)` success callback (string - recognized voice in text)
+
+`catch(function)` error callback (error object)
+
+`startRecord()` run voice recognition
+
+`stopRecord()` stop recognition and promise one of callbacks
+
+`config(object)` config (configObject)
+
+`globalConfig(object)` global config (configObject)
 
 ## License
 

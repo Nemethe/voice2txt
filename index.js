@@ -5,9 +5,24 @@ var globalConfig = {};
 
 class Voice2txt {
 	constructor(configObject = {}) {
+		this.waitForConfig = false;
+		this.returnObject = {
+			then: this.then.bind(this),
+			catch: this.catch.bind(this),
+			startRecord: this.startRecord.bind(this),
+			stopRecord: this.stopRecord.bind(this),
+			config: this.config.bind(this)
+		};
+
+		if (Object.keys(configObject).length !== 0) return this.start(configObject);
+
+		return this.returnObject;
+	}
+
+	start(configObject) {
 		var self = this;
 
-		this.config = Object.assign({
+		this.configObject = Object.assign({
 			log: false,
 			languageCode: 'en-US',
 			speechClientConfig: {
@@ -17,38 +32,41 @@ class Voice2txt {
 		}, configObject);
 
 	    this.callback = () => {
-			if (self.config.log) console.log('callback not set');
+			if (self.configObject.log) console.log('callback not set');
 		};
 		this.errorCallback = () => {
-			if (self.config.log) console.log('error catch not set');
+			if (self.configObject.log) console.log('error catch not set');
 		};
 
 		this.googleSpeechClient = GoogleSpeechClient.config(
 			Object.assign(
-				this.config.speechClientConfig,
+				this.configObject.speechClientConfig,
 				{
-					log: this.config.log,
-					languageCode: this.config.languageCode
+					log: this.configObject.log,
+					languageCode: this.configObject.languageCode
 				}
 			)
 		);
 
-		this.recordInstance = new Record(this.config, (data) => {
+		this.recordInstance = new Record(this.configObject, (data) => {
 			self.googleSpeechClient.run(data).then(self.callback).catch(self.errorCallback);
 		});
 
-		this.returnObject = {
-			then: this.then.bind(this),
-			catch: this.catch.bind(this),
-			startRecord: this.startRecord.bind(this),
-			stopRecord: this.stopRecord.bind(this)
-		};
+		if ('startAfter' in this) this.recordInstance.start();
+
+		return this.returnObject;
+	}
+
+	config(configObject = {}) {
+		if (!('configObject' in this) && Object.keys(configObject).length !== 0) return this.start(configObject);
+
+		Object.assign(this.configObject, configObject);
 
 		return this.returnObject;
 	}
 
 	then(callback) {
-		if (this.config.log) console.log('callback set');
+		if ('configObject' in this && this.configObject.log) console.log('callback set');
 
 		this.callback = callback;
 
@@ -56,7 +74,7 @@ class Voice2txt {
 	}
 
 	catch(errorCallback) {
-		if (this.config.log) console.log('error catch set');
+		if ('configObject' in this && this.configObject.log) console.log('error catch set');
 
 		this.errorCallback = errorCallback;
 
@@ -64,7 +82,8 @@ class Voice2txt {
 	}
 
 	startRecord() {
-		this.recordInstance.start();
+		if ('configObject' in this) this.recordInstance.start();
+		else this.startAfter = true;
 
 		return this.returnObject;
 	}
