@@ -36,7 +36,7 @@ class RecordClass {
 		if (this.config.timeSeconds) {
 			if (this.config.countTime) this.countTime();
 
-			setTimeout(this.stop.bind(this), this.config.timeSeconds * 1000);
+			this.stopTimeout = setTimeout(this.stop.bind(this), this.config.timeSeconds * 1000);
 		}
 	}
 
@@ -50,6 +50,8 @@ class RecordClass {
 	}
 
 	stop() {
+		if ('stopTimeout' in this) clearTimeout(this.stopTimeout);
+
 		recordLPCM16.stop();
 
 		if (this.config.log) console.log('record stop');

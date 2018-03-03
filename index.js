@@ -14,6 +14,8 @@ class Voice2txt {
 			config: this.config.bind(this)
 		};
 
+		configObject = Object.assign(globalConfig, configObject);
+
 		if (Object.keys(configObject).length !== 0) return this.start(configObject);
 
 		return this.returnObject;
@@ -31,9 +33,11 @@ class Voice2txt {
 			}
 		}, configObject);
 
-	    this.callback = () => {
-			if (self.configObject.log) console.log('callback not set');
-		};
+		if (!('callback' in this))
+		    this.callback = () => {
+				if (self.configObject.log) console.log('callback not set');
+			};
+		if (!('errorCallback' in this))
 		this.errorCallback = () => {
 			if (self.configObject.log) console.log('error catch not set');
 		};
@@ -100,7 +104,15 @@ exports.globalConfig = (configObject = {}) => {
 }
 
 exports.config = (configObject = {}) => {
-	return new Voice2txt(Object.assign(globalConfig, configObject));
+	return new Voice2txt(configObject);
+}
+
+exports.then = (callback) => {
+	return new Voice2txt().then(callback);
+}
+
+exports.catch = (callback) => {
+	return new Voice2txt().catch(callback);
 }
 
 exports.startRecord = () => {
