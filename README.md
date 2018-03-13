@@ -9,7 +9,7 @@ with handy promise callbacks.
 
 ## Dependencies
 
-This module is base on
+This module is based on
 [node-record-lpcm16](https://github.com/gillesdemey/node-record-lpcm16) &
 [nodejs-speech](https://github.com/googleapis/nodejs-speech)
 
@@ -58,6 +58,7 @@ stopIfSilence: true | false [if true auto stop recording on (default) .5s of sil
 secondsOfSilence: number [time for stopIfSilence]
 log: true | false [if true you'll see logs in cmd]
 languageCode: string [recognition language]
+recordProgram: string ['rec' (default) but also supports 'sox' and 'arecord', depends on OS]
 ```
 
 [supported languages](https://cloud.google.com/speech/docs/languages)
@@ -147,9 +148,9 @@ Voice2txt.config({
 
 `stopRecord()` stop recognition and promise one of callbacks
 
-`config(object)` config (configObject)
+`config(object)` config
 
-`globalConfig(object)` global config (configObject)
+`globalConfig(object)` global config
 
 ## License
 

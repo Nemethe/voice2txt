@@ -9,6 +9,7 @@ class RecordClass {
 		this.config = Object.assign({
 			stopIfSilence: false,
 			secondsOfSilence: 0.5,
+			recordProgram: 'rec',
 			timeSeconds: 0,
 			countTime: false,
 			log: false
@@ -17,6 +18,10 @@ class RecordClass {
 
 		if (this.config.stopIfSilence) Object.assign(this.configLPCM16, {
 			thresholdEnd: this.config.secondsOfSilence
+		});
+
+		Object.assign(this.configLPCM16, {
+			recordProgram: this.config.recordProgram
 		});
 
 		this.callback = callback;
